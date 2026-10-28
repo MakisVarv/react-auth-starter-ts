@@ -11,15 +11,16 @@ export interface User {
   role: Role;
 }
 
-export interface UserResponse {
+export interface UsersResponse {
   items: User[];
   pagination: Pagination;
 }
 
 export interface UsersQueryParams {
-  page: number;
-  page_size: number;
-  search: string;
-  sort: string;
-  is_active: boolean;
+  page?: number;
+  page_size?: number;
+  search?: string;
+  sort?: string;
+  is_active?: boolean;
+  role?: string;
 }
