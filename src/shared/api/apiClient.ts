@@ -112,7 +112,7 @@ apiClient.interceptors.response.use(
       (error.response
         ? "Request failed. Please try again."
         : "Unable to connect to the server.");
-    throw new AppError(message, status);
+    throw new AppError(message, status, errors);
   },
 );
 export default apiClient;
