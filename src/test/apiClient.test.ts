@@ -1,9 +1,13 @@
 import type { AxiosAdapter, InternalAxiosRequestConfig } from "axios";
 import { afterEach, describe, expect, it } from "vitest";
 import { AxiosError, CanceledError } from "axios";
-import { AppError } from "./errors";
-import apiClient from "./apiClient";
-import { clearAccessToken, setAccessToken } from "./accessTokenStore";
+
+import apiClient from "../shared/api/apiClient";
+import { AppError } from "../shared/api/errors";
+import {
+  clearAccessToken,
+  setAccessToken,
+} from "../shared/api/accessTokenStore";
 
 // Simulate a successful HTTP response without contacting a backend.
 const mockAdapter: AxiosAdapter = (config: InternalAxiosRequestConfig) => {
