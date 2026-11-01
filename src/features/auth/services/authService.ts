@@ -58,7 +58,10 @@ export async function updateProfile(data: UpdateProfileData): Promise<User> {
   return response.data;
 }
 export async function forgotPassword(email: string): Promise<MessageResponse> {
-  const response = await apiClient.post("/auth/forgot-password", { email });
+  const response = await apiClient.post<MessageResponse>(
+    "/auth/forgot-password",
+    { email },
+  );
 
   return response.data;
 }
@@ -66,10 +69,13 @@ export async function resetPassword(
   token: string,
   newPassword: string,
 ): Promise<MessageResponse> {
-  const response = await apiClient.post("/auth/reset-password", {
-    token,
-    new_password: newPassword,
-  });
+  const response = await apiClient.post<MessageResponse>(
+    "/auth/reset-password",
+    {
+      token,
+      new_password: newPassword,
+    },
+  );
 
   return response.data;
 }
@@ -78,7 +84,7 @@ export async function changePassword(
   newPassword: string,
   signal?: AbortSignal,
 ): Promise<MessageResponse> {
-  const response = await apiClient.post(
+  const response = await apiClient.post<MessageResponse>(
     "/auth/change-password",
     {
       new_password: newPassword,
@@ -98,7 +104,7 @@ export async function changeEmail(
   newEmail: string,
   signal?: AbortSignal,
 ): Promise<MessageResponse> {
-  const response = await apiClient.post(
+  const response = await apiClient.post<MessageResponse>(
     "/auth/change-email",
     {
       new_email: newEmail,
@@ -133,7 +139,7 @@ export async function logoutAll(
   freshAccessToken: string,
   signal?: AbortSignal,
 ): Promise<MessageResponse> {
-  const response = await apiClient.post(
+  const response = await apiClient.post<MessageResponse>(
     "/auth/logout-all",
     {},
     {
