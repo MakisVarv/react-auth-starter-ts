@@ -4,3 +4,7 @@ export interface Pagination {
   total: number;
   total_pages: number;
 }
+
+export interface MessageResponse {
+  message: string;
+}

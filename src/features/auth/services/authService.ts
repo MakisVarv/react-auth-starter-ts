@@ -1,4 +1,6 @@
 import apiClient from "../../../shared/api/apiClient";
+import { refreshAccessToken } from "../../../shared/api/tokenRefresh";
+import type { MessageResponse } from "../../../shared/api/types";
 import { getCookie } from "../../../shared/utils/cookies";
 import type { User } from "../../users/types";
 import type {
@@ -43,22 +45,8 @@ export async function logout(): Promise<void> {
   );
 }
 
-export async function refresh(): Promise<string | null> {
-  const csrfToken = getCookie("csrf_refresh_token");
-  if (csrfToken == null) {
-    return null;
-  }
-  const response = await apiClient.post(
-    "/auth/refresh",
-    {},
-    {
-      headers: {
-        "X-CSRF-TOKEN": csrfToken,
-      },
-    },
-  );
-
-  return response.data.access_token;
+export function refresh(): Promise<string | null> {
+  return refreshAccessToken();
 }
 
 export async function getCurrentUser(): Promise<User> {
@@ -69,12 +57,15 @@ export async function updateProfile(data: UpdateProfileData): Promise<User> {
   const response = await apiClient.patch<User>("/auth/me", data);
   return response.data;
 }
-export async function forgotPassword(email: string) {
+export async function forgotPassword(email: string): Promise<MessageResponse> {
   const response = await apiClient.post("/auth/forgot-password", { email });
 
   return response.data;
 }
-export async function resetPassword(token: string, newPassword: string) {
+export async function resetPassword(
+  token: string,
+  newPassword: string,
+): Promise<MessageResponse> {
   const response = await apiClient.post("/auth/reset-password", {
     token,
     new_password: newPassword,
@@ -86,7 +77,7 @@ export async function changePassword(
   freshAccessToken: string,
   newPassword: string,
   signal?: AbortSignal,
-) {
+): Promise<MessageResponse> {
   const response = await apiClient.post(
     "/auth/change-password",
     {
@@ -106,7 +97,7 @@ export async function changeEmail(
   freshAccessToken: string,
   newEmail: string,
   signal?: AbortSignal,
-) {
+): Promise<MessageResponse> {
   const response = await apiClient.post(
     "/auth/change-email",
     {
@@ -141,7 +132,7 @@ export async function reauthenticate(
 export async function logoutAll(
   freshAccessToken: string,
   signal?: AbortSignal,
-) {
+): Promise<MessageResponse> {
   const response = await apiClient.post(
     "/auth/logout-all",
     {},
