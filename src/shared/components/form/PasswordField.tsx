@@ -10,7 +10,7 @@ export function PasswordField({
   placeholder,
   required = false,
   autoComplete,
-}: FieldComponentProps) {
+}: Omit<FieldComponentProps, "type">) {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <>
