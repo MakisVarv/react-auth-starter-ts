@@ -54,33 +54,33 @@ function App() {
             }
           />
         </Route>
-        <Route element={<AuthLayout />}>
-          <Route
-            path="/login"
-            element={
-              <GuestOnlyRoute>
-                <LoginPage />
-              </GuestOnlyRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <GuestOnlyRoute>
-                <RegisterPage />
-              </GuestOnlyRoute>
-            }
-          />
-          <Route
-            path="/forgot-password"
-            element={
-              <GuestOnlyRoute>
-                <ForgotPasswordPage />
-              </GuestOnlyRoute>
-            }
-          />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-        </Route>
+      </Route>
+      <Route element={<AuthLayout />}>
+        <Route
+          path="/login"
+          element={
+            <GuestOnlyRoute>
+              <LoginPage />
+            </GuestOnlyRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <GuestOnlyRoute>
+              <RegisterPage />
+            </GuestOnlyRoute>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <GuestOnlyRoute>
+              <ForgotPasswordPage />
+            </GuestOnlyRoute>
+          }
+        />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Route>
     </Routes>
   );
