@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 
 function GuestOnlyRoute({ children }: { children: ReactNode }) {
   const { user } = useAuth();
