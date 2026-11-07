@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type SubmitEvent } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { toast } from "sonner";
 import { AppError } from "../../../shared/api/errors";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 function ProfilePage() {
   const { user, updateProfile } = useAuth();
   const [form, setForm] = useState({

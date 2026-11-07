@@ -7,7 +7,7 @@ import {
 } from "react";
 
 import { useAuth } from "../hooks/useAuth";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AppError } from "../../../shared/api/errors";
 import { toast } from "sonner";
 import { FormField } from "../../../shared/components/form/FormField";

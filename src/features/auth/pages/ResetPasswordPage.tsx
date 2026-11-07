@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 import { FormError } from "../../../shared/components/form/FormError";
 import { useState, type ChangeEvent, type SubmitEvent } from "react";
 

@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type SubmitEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { AppError } from "../../../shared/api/errors.js";
 import { register } from "../services/authService.js";
 import { toast } from "sonner";

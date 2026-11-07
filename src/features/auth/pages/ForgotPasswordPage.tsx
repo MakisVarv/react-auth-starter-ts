@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { AppError } from "../../../shared/api/errors";
 import { useState, type ChangeEvent, type SubmitEvent } from "react";
 
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { forgotPassword } from "../services/authService";
 import { FormSuccess } from "../../../shared/components/form/FormSuccess";
 import { FormField } from "../../../shared/components/form/FormField";
