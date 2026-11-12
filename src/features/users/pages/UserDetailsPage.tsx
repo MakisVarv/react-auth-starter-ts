@@ -1,7 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useAuth } from '../../auth/hooks/useAuth'
 import { useEffect, useState } from 'react'
-import { changeUserStatus, getUser } from '../userService'
 import { AppError } from '../../../shared/api/errors'
 import ChangeRoleModal from '../components/ChangeRoleModal'
 import DeleteUserModal from '../components/DeleteUserModal'
@@ -10,14 +9,15 @@ import {
   canManageUser,
   hasPermission,
 } from '../../access-control/authorization'
-/** @import { User } from '../types.js' */
+import { changeUserStatus, getUser } from '../services/userService'
+import type { User } from '../types'
 function UserDetailsPage() {
   const { userId } = useParams()
   const { user: currentUser } = useAuth()
   const [loadError, setLoadError] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false)
-  const [user, setUser] = useState(/** @type {User | null } */ (null))
+  const [user, setUser] = useState<User | null>(null)
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false)
   const canEditUser = hasPermission(currentUser, 'user.update')
   const canChangeRole = hasPermission(currentUser, 'user.change_role')
@@ -63,17 +63,15 @@ function UserDetailsPage() {
   const handleDeleteModalClose = () => {
     setIsDeleteModalOpen(false)
   }
-  /** @param  {User} updatedUser */
-  const handleRoleChange = (updatedUser) => {
+
+  const handleRoleChange = (updatedUser: User) => {
     setUser(updatedUser)
   }
   function handleUserDeleted() {
     navigate('/users', { replace: true })
   }
-  /**
-   * @param {User} user
-   */
-  async function handleStatusChange(user) {
+
+  async function handleStatusChange(user: User) {
     setIsUpdatingStatus(true)
     try {
       const updatedUser = await changeUserStatus(user.id, !user.is_active)

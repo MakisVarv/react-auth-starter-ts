@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
-/** @import {ChangeEvent, SubmitEvent } from 'react'*/
+import { useEffect, useState, type ChangeEvent, type SubmitEvent } from 'react'
 import UserForm from '../components/UserForm.js'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppError } from '../../../shared/api/errors.js'
 import { toast } from 'sonner'
 import { useParams } from 'react-router-dom'
-import { editUser, getUser } from '../userService'
+import { editUser, getUser } from '../services/userService.js'
 function EditUserPage() {
   const [form, setForm] = useState({
     first_name: '',
@@ -55,8 +54,8 @@ function EditUserPage() {
       controller.abort()
     }
   }, [userId, userRefreshKey])
-  /** @param {ChangeEvent<HTMLInputElement>} e */
-  function handleChange(e) {
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
 
     setError('')
@@ -66,8 +65,8 @@ function EditUserPage() {
       [name]: value,
     }))
   }
-  /** @param {SubmitEvent<HTMLFormElement>} e */
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
 

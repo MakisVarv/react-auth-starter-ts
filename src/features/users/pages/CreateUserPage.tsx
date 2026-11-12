@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
-/** @import {ChangeEvent, SubmitEvent } from 'react'*/
+import { useEffect, useState, type ChangeEvent, type SubmitEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppError } from '../../../shared/api/errors.js'
 import { toast } from 'sonner'
 import { useAuth } from '../../auth/hooks/useAuth.js'
 import { getRoles } from '../../access-control/services/roleService.js'
-import { createUser } from '../userService'
 import UserForm from '../components/UserForm.js'
 import { canAssignRole } from '../../access-control/authorization.js'
-/** @import { Role } from '../../access-control/types' */
+import type { Role } from '../../access-control/types.js'
+import { createUser } from '../services/userService.js'
+
 function CreateUserPage() {
   const [form, setForm] = useState({
     first_name: '',
@@ -25,7 +25,7 @@ function CreateUserPage() {
   const [rolesError, setRolesError] = useState('')
   const [isLoadingRoles, setIsLoadingRoles] = useState(false)
   const [rolesRefreshKey, setRolesRefreshKey] = useState(0)
-  const [roles, setRoles] = useState(/** @type {Role[]} */ [])
+  const [roles, setRoles] = useState<Role[]>([])
   const navigate = useNavigate()
   useEffect(() => {
     async function loadRoles() {
@@ -47,8 +47,9 @@ function CreateUserPage() {
   }, [rolesRefreshKey])
   if (user === null) return
   const assignableRoles = roles.filter((role) => canAssignRole(user, role))
-  /** @param {ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>} e */
-  function handleChange(e) {
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
+  ) {
     const { name, value } = e.target
 
     setError('')
@@ -58,8 +59,8 @@ function CreateUserPage() {
       [name]: value,
     }))
   }
-  /** @param {SubmitEvent<HTMLFormElement>} e */
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
     const { confirm_password, ...userDetails } = form

@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../auth/hooks/useAuth.js'
 import { AppError } from '../../../shared/api/errors.js'
-import { changeUserStatus, getUsers } from '../userService.js'
 import { toast } from 'sonner'
 import UsersTable from '../components/UsersTable.js'
 import { getRoles } from '../../access-control/services/roleService.js'
 import { Link } from 'react-router-dom'
 import { hasPermission } from '../../access-control/authorization.js'
-/** @import { User } from '../types.js' */
-/** @import { Role } from '../../access-control/types.js' */
-/** @import { Pagination } from '../../../shared/api/types.js' */
+import type { Pagination } from '../../../shared/api/types.js'
+import type { Role } from '../../access-control/types.js'
+import { changeUserStatus, getUsers } from '../services/userService.js'
+import type { User } from '../types.js'
 
 function UsersPage() {
-  const [users, setUsers] = useState(/** @type {User[]} */ [])
+  const [users, setUsers] = useState<User[]>([])
 
-  const [pagination, setPagination] = useState(
-    /** @type {Pagination | null} */ null,
-  )
+  const [pagination, setPagination] = useState<Pagination | null>(null)
   const [pageSize, setPageSize] = useState(10)
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
@@ -26,12 +24,10 @@ function UsersPage() {
   const [sort, setSort] = useState('id')
   const { user } = useAuth()
   const [role, setRole] = useState('')
-  const [roles, setRoles] = useState(/** @type {Role[]} */ [])
+  const [roles, setRoles] = useState<Role[]>([])
   const [isActive, setIsActive] = useState('')
   const [refreshKey, setRefreshKey] = useState(0)
-  const [updatingUserIds, setUpdatingUserIds] = useState(
-    /** @type {Set<string>} */ new Set(),
-  )
+  const [updatingUserIds, setUpdatingUserIds] = useState<Set<string>>(new Set())
   const hasFilters = search !== '' || role !== '' || isActive !== ''
   const canCreateUser = hasPermission(user, 'user.create')
   const canEditUser = hasPermission(user, 'user.update')
@@ -93,10 +89,8 @@ function UsersPage() {
       controller.abort()
     }
   }, [page, pageSize, debouncedSearch, isActive, role, sort, refreshKey])
-  /**
-   * @param {string} field
-   */
-  function handleSort(field) {
+
+  function handleSort(field: string) {
     setSort((current) => {
       if (current === field) {
         return `-${field}`
@@ -107,10 +101,8 @@ function UsersPage() {
 
     setPage(1)
   }
-  /**
-   * @param {User} user
-   */
-  async function handleStatusChange(user) {
+
+  async function handleStatusChange(user: User) {
     try {
       setError('')
       setUpdatingUserIds((current) => {
