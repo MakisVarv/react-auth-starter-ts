@@ -92,7 +92,7 @@ function PermissionDropZone({
   id,
   children,
 }: {
-  id: 'assigned' | 'available'
+  id: PermissionLocation
   children: ReactNode
 }) {
   const { setNodeRef, isOver } = useDroppable({
@@ -489,7 +489,15 @@ function AccessManagementPage() {
                     const target = event.over?.id
 
                     setActivePermissionId(null)
-                    if (!target || source === target) {
+                    if (source !== 'assigned' && source !== 'available') {
+                      return
+                    }
+
+                    if (target !== 'assigned' && target !== 'available') {
+                      return
+                    }
+
+                    if (source === target) {
                       return
                     }
 
