@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react'
-import { deleteUser } from '../services/userService.js'
+import { deleteUser } from '../services/userService.ts'
 import { toast } from 'sonner'
-import { AppError } from '../../../shared/api/errors.js'
-import { useModalAccessibility } from '../../../shared/hooks/useModalAccessibility.js'
-import type { User } from '../types.js'
+import { AppError } from '../../../shared/api/errors.ts'
+import { useModalAccessibility } from '../../../shared/hooks/useModalAccessibility.ts'
+import type { User } from '../types.ts'
 
 function DeleteUserModal({
   user,

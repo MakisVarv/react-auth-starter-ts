@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
-import { canManageUser } from '../../access-control/authorization.js'
-import type { User } from '../types.js'
+import { canManageUser } from '../../access-control/authorization.ts'
+import type { User } from '../types.ts'
 
 function UsersTable({
   actor,

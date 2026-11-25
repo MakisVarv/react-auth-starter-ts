@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
-import { useAuth } from '../../auth/hooks/useAuth.js'
-import { AppError } from '../../../shared/api/errors.js'
+import { useState, useEffect, useCallback, type ReactNode } from 'react'
+import { useAuth } from '../../auth/hooks/useAuth.ts'
+import { AppError } from '../../../shared/api/errors.ts'
 import { toast } from 'sonner'
 import { EllipsisVertical, Pencil, Trash2 } from 'lucide-react'
 import {
@@ -10,14 +10,14 @@ import {
   deleteRole,
   addPermissionToRole,
   removePermissionFromRole,
-} from '../services/roleService.js'
-import { getPermissions } from '../services/permissionService.js'
+} from '../services/roleService.ts'
+
 import {
   canManageRole,
   hasPermission,
   isProtectedRole,
-} from '../authorization.js'
-import RoleModal from '../components/RoleModal.js'
+} from '../authorization.ts'
+import RoleModal from '../components/RoleModal.ts'
 import {
   DndContext,
   DragOverlay,
@@ -25,39 +25,34 @@ import {
   useDroppable,
 } from '@dnd-kit/core'
 import { GripVertical } from 'lucide-react'
-import DeleteRoleModal from '../components/DeleteRoleModal.js'
-/** @import { Role } from '../types.js' */
-/** @import { Permission } from '../types.js' */
-/** @import { ReactNode } from 'react'*/
+import DeleteRoleModal from '../components/DeleteRoleModal.ts'
+import type { Permission, Role } from '../types.ts'
+import { getPermissions } from '../services/permissionService.ts'
 
-/**
- * @typedef {'Create' | 'Edit'} AccessItemMode
- */
-/**
- * @typedef {{
- *   isOpen: boolean,
- *   mode: AccessItemMode | null,
- *   item: Role | null,
- * }}
- */
+interface RoleModalState {
+  isOpen: boolean
+  mode: ('Create' | 'Edit') | null
+  item: Role | null
+}
 
-/**
- * @typedef {{
- *   name: string,
- *   description: string,
- *   level: number,
- * }} RoleFormValues
- */
+interface RoleFormValues {
+  name: string
+  description: string
+  level: number
+}
+interface DraggableProps {
+  permission: Permission
+  children: ReactNode
+  disabled: boolean
+  source: 'assigned' | 'available'
+}
 
-/**
- * @param {{
- *   permission: Permission,
- *   children: ReactNode,
- *   disabled: boolean,
- *   source: 'assigned' | 'available'
- * }} props
- */
-function DraggablePermissionCard({ permission, children, disabled, source }) {
+function DraggablePermissionCard({
+  permission,
+  children,
+  disabled,
+  source,
+}: DraggableProps) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: permission.id,
     disabled,
@@ -91,13 +86,14 @@ function DraggablePermissionCard({ permission, children, disabled, source }) {
     </div>
   )
 }
-/**
- * @param {{
- *   id: 'assigned' | 'available',
- *   children: ReactNode
- * }} props
- */
-function PermissionDropZone({ id, children }) {
+
+function PermissionDropZone({
+  id,
+  children,
+}: {
+  id: 'assigned' | 'available'
+  children: ReactNode
+}) {
   const { setNodeRef, isOver } = useDroppable({
     id,
   })
@@ -115,32 +111,26 @@ function PermissionDropZone({ id, children }) {
 }
 function AccessManagementPage() {
   const { user } = useAuth()
-  const [roles, setRoles] = useState(/** @type {Role[]} */ [])
-  const [permissions, setPermissions] = useState(/** @type {Permission[]} */ [])
-  const [activePermissionId, setActivePermissionId] = useState(
-    /** @type {string | null} */ null,
+  const [roles, setRoles] = useState<Role[]>([])
+  const [permissions, setPermissions] = useState<Permission[]>([])
+  const [activePermissionId, setActivePermissionId] = useState<string | null>(
+    null,
   )
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [selectedRoleId, setSelectedRoleId] = useState('')
   const [updatingPermissionId, setUpdatingPermissionId] = useState('')
-  const [openRoleMenuId, setOpenRoleMenuId] = useState(
-    /** @type {string | null} */ null,
-  )
+  const [openRoleMenuId, setOpenRoleMenuId] = useState<string | null>(null)
   const [isDeletingRole, setIsDeletingRole] = useState(false)
-  const [roleToDelete, setRoleToDelete] = useState(
-    /** @type {Role | null} */ null,
-  )
+  const [roleToDelete, setRoleToDelete] = useState<Role | null>(null)
   const canCreateRole = hasPermission(user, 'role.create')
   const canEditRole = hasPermission(user, 'role.update')
   const canDeleteRole = hasPermission(user, 'role.delete')
-  const [modal, setModal] = useState(
-    /** @type {RoleModalState} */ {
-      isOpen: false,
-      mode: null,
-      item: null,
-    },
-  )
+  const [modal, setModal] = useState<RoleModalState>({
+    isOpen: false,
+    mode: null,
+    item: null,
+  })
   const activePermission = permissions.find(
     (permission) => permission.id === activePermissionId,
   )
@@ -203,10 +193,8 @@ function AccessManagementPage() {
       item: null,
     })
   }
-  /**
-   * @param {string} permissionId
-   */
-  async function addPermission(permissionId) {
+
+  async function addPermission(permissionId: string) {
     try {
       setUpdatingPermissionId(permissionId)
       const updatedRole = await addPermissionToRole(
@@ -228,10 +216,8 @@ function AccessManagementPage() {
       setUpdatingPermissionId('')
     }
   }
-  /**
-   * @param {string} permissionId
-   */
-  async function removePermission(permissionId) {
+
+  async function removePermission(permissionId: string) {
     try {
       setUpdatingPermissionId(permissionId)
       const updatedRole = await removePermissionFromRole(
@@ -253,10 +239,8 @@ function AccessManagementPage() {
       setUpdatingPermissionId('')
     }
   }
-  /**
-   * @param {RoleFormValues} values
-   */
-  async function handleModalSubmit(values) {
+
+  async function handleModalSubmit(values: RoleFormValues) {
     try {
       setIsSubmitting(true)
 

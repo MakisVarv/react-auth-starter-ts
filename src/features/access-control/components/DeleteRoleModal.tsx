@@ -1,8 +1,8 @@
-/** @import { Role } from '../types.js' */
+/** @import { Role } from '../types.ts' */
 
 import { useRef } from 'react'
-import { useModalAccessibility } from '../../../shared/hooks/useModalAccessibility.js'
-import type { Role } from '../types.js'
+import { useModalAccessibility } from '../../../shared/hooks/useModalAccessibility.ts'
+import type { Role } from '../types.ts'
 
 interface DeleteRoleModalProps {
   role: Role

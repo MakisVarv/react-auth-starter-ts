@@ -1,13 +1,13 @@
 import { useEffect, useState, type ChangeEvent, type SubmitEvent } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { AppError } from '../../../shared/api/errors.js'
+import { AppError } from '../../../shared/api/errors.ts'
 import { toast } from 'sonner'
-import { useAuth } from '../../auth/hooks/useAuth.js'
-import { getRoles } from '../../access-control/services/roleService.js'
-import UserForm from '../components/UserForm.js'
-import { canAssignRole } from '../../access-control/authorization.js'
-import type { Role } from '../../access-control/types.js'
-import { createUser } from '../services/userService.js'
+import { useAuth } from '../../auth/hooks/useAuth.ts'
+import { getRoles } from '../../access-control/services/roleService.ts'
+import UserForm from '../components/UserForm.tsx'
+import { canAssignRole } from '../../access-control/authorization.ts'
+import type { Role } from '../../access-control/types.ts'
+import { createUser } from '../services/userService.ts'
 
 function CreateUserPage() {
   const [form, setForm] = useState({

@@ -1,8 +1,8 @@
 import { useRef, useState, type ChangeEvent, type SubmitEvent } from 'react'
-import { isProtectedRole, MAX_ROLE_LEVEL } from '../authorization.js'
-import { useModalAccessibility } from '../../../shared/hooks/useModalAccessibility.js'
-import type { User } from '../../users/types.js'
-import type { Role } from '../types.js'
+import { isProtectedRole, MAX_ROLE_LEVEL } from '../authorization.ts'
+import { useModalAccessibility } from '../../../shared/hooks/useModalAccessibility.ts'
+import type { User } from '../../users/types.ts'
+import type { Role } from '../types.ts'
 
 interface RoleModalProps {
   actor: User

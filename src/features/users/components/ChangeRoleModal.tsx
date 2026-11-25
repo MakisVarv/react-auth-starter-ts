@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
-import { useAuth } from '../../auth/hooks/useAuth.js'
+import { useAuth } from '../../auth/hooks/useAuth.ts'
 
 import { toast } from 'sonner'
-import { AppError } from '../../../shared/api/errors.js'
+import { AppError } from '../../../shared/api/errors.ts'
 
-import { canAssignRole } from '../../access-control/authorization.js'
-import type { User } from '../types.js'
-import { useModalAccessibility } from '../../../shared/hooks/useModalAccessibility.js'
-import { getRoles } from '../../access-control/services/roleService.js'
-import type { Role } from '../../access-control/types.js'
-import { changeRole } from '../services/userService.js'
+import { canAssignRole } from '../../access-control/authorization.ts'
+import type { User } from '../types.ts'
+import { useModalAccessibility } from '../../../shared/hooks/useModalAccessibility.ts'
+import { getRoles } from '../../access-control/services/roleService.ts'
+import type { Role } from '../../access-control/types.ts'
+import { changeRole } from '../services/userService.ts'
 
 function ChangeRoleModal({
   user,
