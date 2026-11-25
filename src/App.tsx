@@ -21,6 +21,7 @@ import CreateUserPage from './features/users/pages/CreateUserPage'
 import EditUserPage from './features/users/pages/EditUserPage'
 import UserDetailsPage from './features/users/pages/UserDetailsPage'
 import UsersPage from './features/users/pages/UsersPage'
+import AccessManagementPage from './features/access-control/pages/AccessManagementPage'
 
 function App() {
   return (
@@ -70,14 +71,14 @@ function App() {
               </PermissionRoute>
             }
           />
-          {/* <Route
+          <Route
             path="/accessControl"
             element={
               <PermissionRoute permissions={['role.read', 'permission.read']}>
                 <AccessManagementPage />
               </PermissionRoute>
             }
-          /> */}
+          />
           <Route
             path="/users"
             element={
