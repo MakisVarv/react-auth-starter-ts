@@ -29,6 +29,7 @@ import DeleteRoleModal from '../components/DeleteRoleModal'
 import type { Permission, Role } from '../types.ts'
 import { getPermissions } from '../services/permissionService.ts'
 
+type PermissionLocation = 'assigned' | 'available'
 interface RoleModalState {
   isOpen: boolean
   mode: ('Create' | 'Edit') | null
@@ -44,7 +45,7 @@ interface DraggableProps {
   permission: Permission
   children: ReactNode
   disabled: boolean
-  source: 'assigned' | 'available'
+  source: PermissionLocation
 }
 
 function DraggablePermissionCard({
