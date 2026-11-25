@@ -1,12 +1,5 @@
 import { useEffect, type RefObject } from 'react'
-/**
- * @param {{
- *   dialogRef: RefObject<HTMLElement | null>,
- *   initialFocusRef:RefObject<HTMLElement | null>,
- *   onClose: () => void,
- *   canClose?: boolean
- * }} options
- */
+
 interface ModalProps {
   dialogRef: RefObject<HTMLElement | null>
   initialFocusRef: RefObject<HTMLElement | null>
