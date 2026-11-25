@@ -1,9 +1,9 @@
 import { useEffect, useState, type ChangeEvent, type SubmitEvent } from 'react'
 import UserForm from '../components/UserForm.js'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 import { AppError } from '../../../shared/api/errors.js'
 import { toast } from 'sonner'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { editUser, getUser } from '../services/userService.js'
 function EditUserPage() {
   const [form, setForm] = useState({

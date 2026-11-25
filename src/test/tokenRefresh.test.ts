@@ -14,7 +14,7 @@ vi.mock('axios', () => ({
   },
 }))
 
-vi.mock('../utils/cookies', () => ({
+vi.mock('../shared/utils/cookies.ts', () => ({
   getCookie: mockGetCookie,
 }))
 

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { canManageUser } from '../../access-control/authorization.js'
 import type { User } from '../types.js'
 

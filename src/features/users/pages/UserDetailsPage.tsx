@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router'
 import { useAuth } from '../../auth/hooks/useAuth'
 import { useEffect, useState } from 'react'
 import { AppError } from '../../../shared/api/errors'
