@@ -17,7 +17,7 @@ import {
   hasPermission,
   isProtectedRole,
 } from '../authorization.ts'
-import RoleModal from '../components/RoleModal.ts'
+import RoleModal from '../components/RoleModal'
 import {
   DndContext,
   DragOverlay,
@@ -25,7 +25,7 @@ import {
   useDroppable,
 } from '@dnd-kit/core'
 import { GripVertical } from 'lucide-react'
-import DeleteRoleModal from '../components/DeleteRoleModal.ts'
+import DeleteRoleModal from '../components/DeleteRoleModal'
 import type { Permission, Role } from '../types.ts'
 import { getPermissions } from '../services/permissionService.ts'
 
